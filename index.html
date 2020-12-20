@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Интерактивный фото сервис">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto Russia</title>
+</head>
+<body class="page">
+  <div class = "page__container">
+    <header class="header page__block block-width block-width_type_mobile">
+      <img src="./images/header-logo.svg" alt="Место Россия" class="header__logo">
+    </header>
+    <main class="content page__block block-width">
+      <section class="profile">
+        <div class="profile__content-container">
+          <img src="./images/profile-avatar.jpg" alt="Портрет Жак-Ив Кусто" class="profile__avatar">
+          <div class="profile__info">
+            <div class="profile__container">
+              <h1 class="profile__name content-overflow">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button" type="button"></button>
+            </div>
+            <p class="profile__job content-overflow">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__add-button" type="button"></button>
+      </section>
+      <section class="elements">
+        <div class="elements__card">
+          <div class="elements__image elements__image_place_baikal"></div>
+          <div class="elements__container">
+            <h2 class="elements__title content-overflow">Байкал</h2>
+            <svg class="elements__like-button" xmlns="http://www.w3.org/2000/svg">
+              <path class="elements__like-curve" d="M18.8005 1.95849L18.8023 1.96024C20.7437 3.88233 20.7462 7.03905 18.8005 8.98466L10.361 17.4238L1.94628 9.00951C1.9457 9.00892 1.94511 9.00833 1.94453 9.00773C1.0188 8.06185 0.5 6.81051 0.5 5.48217C0.5 4.14855 1.00122 2.89987 1.94265 1.95849L1.94266 1.95849L1.94441 1.95672C3.86629 0.0157068 7.02186 0.0131363 8.96748 1.97793L8.96922 1.97967L10.0074 3.01784L10.3646 3.37496L10.7181 3.01425L11.7545 1.95678C13.6993 0.0138381 16.8563 0.0144082 18.8005 1.95849Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="elements__card">
+          <div class="elements__image elements__image_place_cape-nyuklya"></div>
+          <div class="elements__container">
+            <h2 class="elements__title content-overflow">Мыс Нюкля</h2>
+            <svg class="elements__like-button" xmlns="http://www.w3.org/2000/svg">
+              <path class="elements__like-curve" d="M18.8005 1.95849L18.8023 1.96024C20.7437 3.88233 20.7462 7.03905 18.8005 8.98466L10.361 17.4238L1.94628 9.00951C1.9457 9.00892 1.94511 9.00833 1.94453 9.00773C1.0188 8.06185 0.5 6.81051 0.5 5.48217C0.5 4.14855 1.00122 2.89987 1.94265 1.95849L1.94266 1.95849L1.94441 1.95672C3.86629 0.0157068 7.02186 0.0131363 8.96748 1.97793L8.96922 1.97967L10.0074 3.01784L10.3646 3.37496L10.7181 3.01425L11.7545 1.95678C13.6993 0.0138381 16.8563 0.0144082 18.8005 1.95849Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="elements__card">
+          <div class="elements__image elements__image_place_gora-chernaya"></div>
+          <div class="elements__container">
+            <h2 class="elements__title content-overflow">Гора Чёрная Пирамида</h2>
+            <svg class="elements__like-button" xmlns="http://www.w3.org/2000/svg">
+              <path class="elements__like-curve" d="M18.8005 1.95849L18.8023 1.96024C20.7437 3.88233 20.7462 7.03905 18.8005 8.98466L10.361 17.4238L1.94628 9.00951C1.9457 9.00892 1.94511 9.00833 1.94453 9.00773C1.0188 8.06185 0.5 6.81051 0.5 5.48217C0.5 4.14855 1.00122 2.89987 1.94265 1.95849L1.94266 1.95849L1.94441 1.95672C3.86629 0.0157068 7.02186 0.0131363 8.96748 1.97793L8.96922 1.97967L10.0074 3.01784L10.3646 3.37496L10.7181 3.01425L11.7545 1.95678C13.6993 0.0138381 16.8563 0.0144082 18.8005 1.95849Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="elements__card">
+          <div class="elements__image elements__image_place_kamchatka"></div>
+          <div class="elements__container">
+            <h2 class="elements__title content-overflow">Камчатка</h2>
+            <svg class="elements__like-button" xmlns="http://www.w3.org/2000/svg">
+              <path class="elements__like-curve" d="M18.8005 1.95849L18.8023 1.96024C20.7437 3.88233 20.7462 7.03905 18.8005 8.98466L10.361 17.4238L1.94628 9.00951C1.9457 9.00892 1.94511 9.00833 1.94453 9.00773C1.0188 8.06185 0.5 6.81051 0.5 5.48217C0.5 4.14855 1.00122 2.89987 1.94265 1.95849L1.94266 1.95849L1.94441 1.95672C3.86629 0.0157068 7.02186 0.0131363 8.96748 1.97793L8.96922 1.97967L10.0074 3.01784L10.3646 3.37496L10.7181 3.01425L11.7545 1.95678C13.6993 0.0138381 16.8563 0.0144082 18.8005 1.95849Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="elements__card">
+          <div class="elements__image elements__image_place_red-square"></div>
+          <div class="elements__container">
+            <h2 class="elements__title content-overflow">Красная площадь</h2>
+            <svg class="elements__like-button" xmlns="http://www.w3.org/2000/svg">
+              <path class="elements__like-curve" d="M18.8005 1.95849L18.8023 1.96024C20.7437 3.88233 20.7462 7.03905 18.8005 8.98466L10.361 17.4238L1.94628 9.00951C1.9457 9.00892 1.94511 9.00833 1.94453 9.00773C1.0188 8.06185 0.5 6.81051 0.5 5.48217C0.5 4.14855 1.00122 2.89987 1.94265 1.95849L1.94266 1.95849L1.94441 1.95672C3.86629 0.0157068 7.02186 0.0131363 8.96748 1.97793L8.96922 1.97967L10.0074 3.01784L10.3646 3.37496L10.7181 3.01425L11.7545 1.95678C13.6993 0.0138381 16.8563 0.0144082 18.8005 1.95849Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="elements__card">
+          <div class="elements__image elements__image_place_saint-petersburg"></div>
+          <div class="elements__container">
+            <h2 class="elements__title content-overflow">Санкт-Петербург</h2>
+            <svg class="elements__like-button" xmlns="http://www.w3.org/2000/svg">
+              <path class="elements__like-curve" d="M18.8005 1.95849L18.8023 1.96024C20.7437 3.88233 20.7462 7.03905 18.8005 8.98466L10.361 17.4238L1.94628 9.00951C1.9457 9.00892 1.94511 9.00833 1.94453 9.00773C1.0188 8.06185 0.5 6.81051 0.5 5.48217C0.5 4.14855 1.00122 2.89987 1.94265 1.95849L1.94266 1.95849L1.94441 1.95672C3.86629 0.0157068 7.02186 0.0131363 8.96748 1.97793L8.96922 1.97967L10.0074 3.01784L10.3646 3.37496L10.7181 3.01425L11.7545 1.95678C13.6993 0.0138381 16.8563 0.0144082 18.8005 1.95849Z"/>
+            </svg>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer page__block block-width">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+    <section class="popup">
+      <form class="popup__container">
+        <button class="popup__close-button" type="button"></button>
+        <h2 class="popup__heading">Редактировать профиль</h2>
+        <input type="text" class="popup__input popup__input_type_name">
+        <input type="text" class="popup__input popup__input_type_job">
+        <button type="submit" class="popup__save-button">Сохранить</button>
+      </form>
+    </section>
+  </div>
+  <script src="./scripts/index.js"></script>
+</body>
+</html>

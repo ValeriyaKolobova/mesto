@@ -1,0 +1,5 @@
+@media screen and (max-width: 320px) {
+  .block-width_type_mobile {
+    max-width: 100%;
+  }
+}
