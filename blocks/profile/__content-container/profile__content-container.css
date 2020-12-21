@@ -6,6 +6,7 @@
 
 @media screen and (max-width: 970px) {
   .profile__content-container {
+    justify-content: center;
     margin-bottom: 26px;
     width: 100%;
   }

@@ -1,39 +1,9 @@
 .block-width {
-  max-width: calc(100% - 200px*2);
+  max-width: 69%;
 }
 
-@media screen and (max-width: 1084px) {
+@media screen and (max-width: 846px) {
   .block-width {
-    max-width: calc(100% - 150px*2);
-  }
-}
-
-@media screen and (max-width: 940px) {
-  .block-width {
-    max-width: calc(100% - 130px*2);
-  }
-}
-
-@media screen and (max-width: 734px) {
-  .block-width {
-    max-width: calc(100% - 100px*2);
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .block-width {
-    max-width: calc(100% - 50px*2);
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .block-width {
-    max-width: calc(100% - 35px*2);
-  }
-}
-
-@media screen and (max-width: 360px) {
-  .block-width {
-    max-width: calc(100% - 19px*2);
+    max-width: 88%;
   }
 }
