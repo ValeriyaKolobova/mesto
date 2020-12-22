@@ -1,9 +1,11 @@
 .block-width {
-  max-width: 69%;
+  max-width: 880px;
 }
 
-@media screen and (max-width: 846px) {
+@media screen and (max-width: 320px) {
   .block-width {
-    max-width: 88%;
+    max-width: 282px;
   }
 }
+
+
