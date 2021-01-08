@@ -19,3 +19,7 @@
   background-image: url('../../../images/elements-like-button-active.svg');
   opacity: 1;
 }
+
+.elements__like-button:focus {
+  outline-color: #2f80ed;
+}

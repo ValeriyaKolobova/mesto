@@ -25,3 +25,7 @@
     margin-bottom: 27px;
   }
 }
+
+popup__input::placeholder {
+  color: #C4C4C4;
+}

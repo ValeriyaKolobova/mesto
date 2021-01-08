@@ -26,57 +26,16 @@
         </div>
         <button class="profile__add-button" type="button"></button>
       </section>
-      <section class="elements">
+      <section class="elements" aria-label="cards-with-images">
         <ul class="elements__cards-list">
-          <li class="elements__card">
-            <img src="./images/elements-baikal.jpg" alt="Скалистый берег озера Байкал" class="elements__image">
-            <div class="elements__container">
-              <h2 class="elements__title content-overflow">Байкал</h2>
-              <button class="elements__like-button" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img src="./images/elements-cape-nyuklya.jpg" alt="Мыс Нюкля" class="elements__image">
-            <div class="elements__container">
-              <h2 class="elements__title content-overflow">Мыс Нюкля</h2>
-              <button class="elements__like-button" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img src="./images/elements-gora-chernaya.jpg" alt="Гора Чёрная Пирамида" class="elements__image">
-            <div class="elements__container">
-              <h2 class="elements__title content-overflow">Гора Чёрная Пирамида</h2>
-              <button class="elements__like-button" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img src="./images/elements-kamchatka.jpg" alt="Вулкан на Камчатке" class="elements__image">
-            <div class="elements__container">
-              <h2 class="elements__title content-overflow">Камчатка</h2>
-              <button class="elements__like-button" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img src="./images/elements-red-square.jpg" alt="Красная площадь ночью" class="elements__image">
-            <div class="elements__container">
-              <h2 class="elements__title content-overflow">Красная площадь</h2>
-              <button class="elements__like-button" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img src="./images/elements-saint-petersburg.jpg" alt="Казанский собор в Санкт-Петербурге" class="elements__image">
-            <div class="elements__container">
-              <h2 class="elements__title content-overflow">Санкт-Петербург</h2>
-              <button class="elements__like-button" type="button"></button>
-            </div>
-          </li>
+
         </ul>
       </section>
     </main>
     <footer class="footer page__block block-width">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <section class="popup">
+    <section class="popup popup_type_edit-personal-info">
       <div class="popup__container">
         <button class="popup__close-button" type="button"></button>
         <h2 class="popup__heading">Редактировать профиль</h2>
@@ -87,7 +46,36 @@
         </form>
       </div>
     </section>
+    <section class="popup popup_type_add-new-image">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"></button>
+        <h2 class="popup__heading">Новое место</h2>
+        <form class="popup__form" name="popup-add-picture">
+          <input type="text" class="popup__input popup__input_type_place-name" placeholder ="Название" name="place-name">
+          <input type="text" class="popup__input popup__input_type_link" placeholder ="Ссылка на картинку" name="link">
+          <button type="submit" class="popup__save-button">Создать</button>
+        </form>
+      </div>
+    </section>
+    <section class="popup popup_type_show-image" aria-label="show-image-popup">
+      <figure class="popup__image-with-caption">
+        <button class="popup__close-button" type="button"></button>
+        <img src="./images/empty-image.gif" alt="" class="popup__image">
+        <figcaption class="popup__caption"></figcaption>
+      </figure>
+    </section>
   </div>
+
+  <template class="card-template">
+    <li class="elements__card">
+      <button class="elements__delete-button" type="button"></button>
+      <img src="" alt=" " class="elements__image">
+      <div class="elements__container">
+        <h2 class="elements__title content-overflow"></h2>
+        <button class="elements__like-button" type="button"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>

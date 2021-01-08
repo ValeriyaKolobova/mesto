@@ -1,0 +1,12 @@
+.popup__image-with-caption {
+  margin: 90px auto 0;
+  position: relative;
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__image-with-caption {
+    margin: 136px auto 0;
+  }
+}
