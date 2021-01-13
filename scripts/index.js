@@ -44,10 +44,10 @@ function handleDeleteCard(evt) {
 function opens the popup with the enlarged existing image and its full description
 */
 function handlePreviewImage(photo) {
-  openPopupOverlay(imagePopupOverlay);
   imageCaptionPopup.textContent = photo.name;
   imagePopup.src = photo.link;
   imagePopup.alt = `Изображение ${photo.name}`;
+  openPopupOverlay(imagePopupOverlay);
 }
 
 function createCard(image) {
