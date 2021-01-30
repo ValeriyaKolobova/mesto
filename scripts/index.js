@@ -5,16 +5,16 @@ const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 
 const profilePopupOverlay = document.querySelector('.popup_type_edit-personal-info');
-const inputName = profilePopupOverlay.querySelector('.popup__input_type_name');
-const inputJob = profilePopupOverlay.querySelector('.popup__input_type_job');
 const profilePopupCloseButton = profilePopupOverlay.querySelector('.popup__close-button');
-const profilePopupForm = profilePopupOverlay.querySelector('.popup__form');
+const profilePopupForm = document.forms['popup-profile-info'];
+const inputName = profilePopupForm.elements.name;
+const inputJob = profilePopupForm.elements.job;
 
 const newImagePopupOverlay = document.querySelector('.popup_type_add-new-image');
 const newImagePopupCloseButton = newImagePopupOverlay.querySelector('.popup__close-button');
-const newImagePopupForm = newImagePopupOverlay.querySelector('.popup__form');
-const newImageName = newImagePopupOverlay.querySelector('.popup__input_type_place-name');
-const newImageLink = newImagePopupOverlay.querySelector('.popup__input_type_link');
+const newImagePopupForm = document.forms['popup-add-picture'];
+const newImageName = newImagePopupForm.elements['place-name'];
+const newImageLink = newImagePopupForm.elements.link;
 
 const imagePopupOverlay = document.querySelector('.popup_type_show-image');
 const imageCaptionPopup = imagePopupOverlay.querySelector('.popup__caption');
@@ -24,25 +24,48 @@ const imagePopupCloseButton = imagePopupOverlay.querySelector('.popup__close-but
 const cardsList = document.querySelector('.elements__cards-list');
 const cardTemplate = document.querySelector('.card-template').content;
 
-function openPopupOverlay(popupOverlay) {
-  popupOverlay.classList.add('popup_opened');
-}
 
 function closePopupOverlay(popupOverlay) {
   popupOverlay.classList.remove('popup_opened');
+  popupOverlay.removeEventListener('click', handlePopupClosureByOverlayClick);
+  document.removeEventListener('keydown', handlePopupClosureByEscape);
 }
 
+function handlePopupClosureByOverlayClick(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if(evt.target === evt.currentTarget) {
+    closePopupOverlay(popupOpened);
+  };
+}
+
+function handlePopupClosureByEscape(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if(evt.key === 'Escape') {
+    closePopupOverlay(popupOpened);
+  };
+}
+
+function openPopupOverlay(popupOverlay) {
+  popupOverlay.classList.add('popup_opened');
+  popupOverlay.addEventListener('click', handlePopupClosureByOverlayClick);
+  document.addEventListener('keydown', handlePopupClosureByEscape);
+}
+
+/*adding 'click' event handler to the like button*/
 function handleLikeButton(evt) {
-  evt.target.classList.toggle('elements__like-button_active');
+  if(evt.target.classList.contains('elements__like-button')) {
+    evt.target.classList.toggle('elements__like-button_active');
+  };
 }
 
+/*adding 'click' event handler to delete the existing card*/
 function handleDeleteCard(evt) {
-  evt.target.closest('.elements__card').remove();
+  if(evt.target.classList.contains('elements__delete-button')) {
+    evt.target.closest('.elements__card').remove();
+  };
 }
 
-/*
-function opens the popup with the enlarged existing image and its full description
-*/
+/* function opens the popup with the enlarged existing image and its full description */
 function handlePreviewImage(photo) {
   imageCaptionPopup.textContent = photo.name;
   imagePopup.src = photo.link;
@@ -51,30 +74,15 @@ function handlePreviewImage(photo) {
 }
 
 function createCard(image) {
-  /*
-  getting access to the card template and its child elements
-  */
+  /* getting access to the card template and its child elements */
   const cardElement = cardTemplate.cloneNode(true);
-
-  const likeButton = cardElement.querySelector('.elements__like-button');
-  const deleteButton = cardElement.querySelector('.elements__delete-button');
-
   const cardImage = cardElement.querySelector('.elements__image');
   const cardImageName = cardElement.querySelector('.elements__title');
 
-  /*
-  filling the card's elements with contents
-  */
+  /* filling the card's elements with contents */
   cardImageName.textContent = image.name;
   cardImage.src = image.link;
   cardImage.alt = `Изображение ${image.name}`;
-
-  /*
-  adding event handlers to the card's elements
-  */
-  likeButton.addEventListener('click', handleLikeButton);
-
-  deleteButton.addEventListener('click', handleDeleteCard);
 
   cardImage.addEventListener('click', () => {
     handlePreviewImage(image);
@@ -96,18 +104,14 @@ initialCards.forEach(item => {
   addCard(cardsList, createCard(item));
 });
 
-/*
-opening the profile popup with the existing values for the user's name and job displayed on the main page
-*/
+/*opening the profile popup with the existing values for the user's name and job displayed on the main page*/
 function handleProfilePopup() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
   openPopupOverlay(profilePopupOverlay);
 }
 
-/*
-reading new values of the user's name and job and their rendering on the main page
-*/
+/*reading new values of the user's name and job and their rendering on the main page*/
 function handleProfileForm(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
@@ -127,6 +131,9 @@ function handleNewImagePopupForm(evt) {
   newImagePopupForm.reset();
   closePopupOverlay(newImagePopupOverlay);
 }
+
+cardsList.addEventListener('click', handleLikeButton);
+cardsList.addEventListener('click', handleDeleteCard);
 
 profileEditButton.addEventListener('click', handleProfilePopup);
 
@@ -149,4 +156,3 @@ newImagePopupForm.addEventListener('submit', handleNewImagePopupForm);
 imagePopupCloseButton.addEventListener('click', () => {
   closePopupOverlay(imagePopupOverlay);
 });
-
