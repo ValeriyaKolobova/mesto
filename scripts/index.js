@@ -53,16 +53,12 @@ function openPopupOverlay(popupOverlay) {
 
 /*adding 'click' event handler to the like button*/
 function handleLikeButton(evt) {
-  if(evt.target.classList.contains('elements__like-button')) {
-    evt.target.classList.toggle('elements__like-button_active');
-  };
+  evt.target.classList.toggle('elements__like-button_active');
 }
 
 /*adding 'click' event handler to delete the existing card*/
 function handleDeleteCard(evt) {
-  if(evt.target.classList.contains('elements__delete-button')) {
-    evt.target.closest('.elements__card').remove();
-  };
+  evt.target.closest('.elements__card').remove();
 }
 
 /* function opens the popup with the enlarged existing image and its full description */
@@ -78,11 +74,17 @@ function createCard(image) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.elements__image');
   const cardImageName = cardElement.querySelector('.elements__title');
+  const likeButton = cardElement.querySelector('.elements__like-button');
+  const deleteButton = cardElement.querySelector('.elements__delete-button');
 
   /* filling the card's elements with contents */
   cardImageName.textContent = image.name;
   cardImage.src = image.link;
   cardImage.alt = `Изображение ${image.name}`;
+
+  likeButton.addEventListener('click', handleLikeButton);
+
+  deleteButton.addEventListener('click', handleDeleteCard);
 
   cardImage.addEventListener('click', () => {
     handlePreviewImage(image);
@@ -131,9 +133,6 @@ function handleNewImagePopupForm(evt) {
   newImagePopupForm.reset();
   closePopupOverlay(newImagePopupOverlay);
 }
-
-cardsList.addEventListener('click', handleLikeButton);
-cardsList.addEventListener('click', handleDeleteCard);
 
 profileEditButton.addEventListener('click', handleProfilePopup);
 
