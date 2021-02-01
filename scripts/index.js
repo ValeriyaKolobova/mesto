@@ -15,6 +15,7 @@ const newImagePopupCloseButton = newImagePopupOverlay.querySelector('.popup__clo
 const newImagePopupForm = document.forms['popup-add-picture'];
 const newImageName = newImagePopupForm.elements['place-name'];
 const newImageLink = newImagePopupForm.elements.link;
+const newImageSubmitButton = newImagePopupForm.elements['submit-new-image'];
 
 const imagePopupOverlay = document.querySelector('.popup_type_show-image');
 const imageCaptionPopup = imagePopupOverlay.querySelector('.popup__caption');
@@ -131,6 +132,7 @@ function handleNewImagePopupForm(evt) {
   evt.preventDefault();
   addCard(cardsList, createCard({name: newImageName.value, link: newImageLink.value}));
   newImagePopupForm.reset();
+  toggleButtonState(true, newImageSubmitButton, 'popup__button_disabled');
   closePopupOverlay(newImagePopupOverlay);
 }
 

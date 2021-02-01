@@ -48,8 +48,8 @@ managing the appearance of the submit button:
 if the form has at least one invalid input, the button is disabled;
 if all inputs in the form are valid, the button is active and clickable
 */
-function toggleButtonState(inputs, buttonElement, buttonClassInactive) {
-  if(hasInvalidInput(inputs)) {
+function toggleButtonState(hasInvalidInput, buttonElement, buttonClassInactive) {
+  if(hasInvalidInput) {
     buttonElement.classList.add(buttonClassInactive);
     buttonElement.setAttribute('disabled', true);
   } else {
@@ -66,13 +66,13 @@ function setEventListeners(formElement, inputSelector, buttonSelector, buttonCla
   const buttonElement = formElement.querySelector(buttonSelector);
   const inputs = Array.from(formElement.querySelectorAll(inputSelector));
 
-  toggleButtonState(inputs, buttonElement, buttonClassInactive);
+  toggleButtonState(hasInvalidInput(inputs), buttonElement, buttonClassInactive);
 
   inputs.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
       isValid(formElement, inputElement, errorElemClassVisible, inputClassError);
 
-      toggleButtonState(inputs, buttonElement, buttonClassInactive);
+      toggleButtonState(hasInvalidInput(inputs), buttonElement, buttonClassInactive);
     });
   });
 }
