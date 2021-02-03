@@ -9,6 +9,7 @@ const profilePopupCloseButton = profilePopupOverlay.querySelector('.popup__close
 const profilePopupForm = document.forms['popup-profile-info'];
 const inputName = profilePopupForm.elements.name;
 const inputJob = profilePopupForm.elements.job;
+const profilePopupSubmitButton = profilePopupForm.querySelector('.popup__button');
 
 const newImagePopupOverlay = document.querySelector('.popup_type_add-new-image');
 const newImagePopupCloseButton = newImagePopupOverlay.querySelector('.popup__close-button');
@@ -111,6 +112,11 @@ initialCards.forEach(item => {
 function handleProfilePopup() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
+  const inputs = Array.from(profilePopupForm.querySelectorAll('.popup__input'));
+  inputs.forEach(input => {
+    hideInputError(profilePopupForm, input, 'popup__error_visible', 'popup__input_type_error');
+  });
+  toggleButtonState(false, profilePopupSubmitButton, 'popup__button_disabled');
   openPopupOverlay(profilePopupOverlay);
 }
 
@@ -128,12 +134,20 @@ reading the values of the new image's source and title and creating a new image 
 reseting the values of the form's text inputs to their initial values,
 closing the popup
 */
-function handleNewImagePopupForm(evt) {
+function handleSubmitNewImagePopupForm(evt) {
   evt.preventDefault();
   addCard(cardsList, createCard({name: newImageName.value, link: newImageLink.value}));
+  closePopupOverlay(newImagePopupOverlay);
+}
+
+function handleOpenNewImagePopupForm() {
   newImagePopupForm.reset();
   toggleButtonState(true, newImageSubmitButton, 'popup__button_disabled');
-  closePopupOverlay(newImagePopupOverlay);
+  const inputs = Array.from(newImagePopupForm.querySelectorAll('.popup__input'));
+  inputs.forEach(input => {
+    hideInputError(newImagePopupForm, input, 'popup__error_visible', 'popup__input_type_error');
+  });
+  openPopupOverlay(newImagePopupOverlay);
 }
 
 profileEditButton.addEventListener('click', handleProfilePopup);
@@ -144,15 +158,13 @@ profilePopupCloseButton.addEventListener('click', () => {
 
 profilePopupForm.addEventListener('submit', handleProfileForm);
 
-imageAddButton.addEventListener('click', () => {
-  openPopupOverlay(newImagePopupOverlay);
-});
+imageAddButton.addEventListener('click', handleOpenNewImagePopupForm);
 
 newImagePopupCloseButton.addEventListener('click', () => {
   closePopupOverlay(newImagePopupOverlay);
 });
 
-newImagePopupForm.addEventListener('submit', handleNewImagePopupForm);
+newImagePopupForm.addEventListener('submit', handleSubmitNewImagePopupForm);
 
 imagePopupCloseButton.addEventListener('click', () => {
   closePopupOverlay(imagePopupOverlay);
