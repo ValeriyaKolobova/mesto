@@ -1,3 +1,7 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import {initialCards} from './initialCards.js';
+
 const profileEditButton = document.querySelector('.profile__edit-button');
 const imageAddButton = document.querySelector('.profile__add-button');
 
@@ -18,14 +22,34 @@ const newImageName = newImagePopupForm.elements['place-name'];
 const newImageLink = newImagePopupForm.elements.link;
 const newImageSubmitButton = newImagePopupForm.elements['submit-new-image'];
 
-const imagePopupOverlay = document.querySelector('.popup_type_show-image');
-const imageCaptionPopup = imagePopupOverlay.querySelector('.popup__caption');
-const imagePopup = imagePopupOverlay.querySelector('.popup__image');
+export const imagePopupOverlay = document.querySelector('.popup_type_show-image');
+export const imageCaptionPopup = imagePopupOverlay.querySelector('.popup__caption');
+export const imagePopup = imagePopupOverlay.querySelector('.popup__image');
 const imagePopupCloseButton = imagePopupOverlay.querySelector('.popup__close-button');
 
 const cardsList = document.querySelector('.elements__cards-list');
-const cardTemplate = document.querySelector('.card-template').content;
 
+//creating an instance for FormValidator class (profilePopupForm)
+const profilePopupFormValidator = new FormValidator({
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}, profilePopupForm);
+
+profilePopupFormValidator.enableValidation();
+
+//creating an instance for FormValidator class (newImagePopupForm)
+const newImagePopupFormValidator = new FormValidator({
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}, newImagePopupForm);
+
+newImagePopupFormValidator.enableValidation();
 
 function closePopupOverlay(popupOverlay) {
   popupOverlay.classList.remove('popup_opened');
@@ -47,80 +71,56 @@ function handlePopupClosureByEscape(evt) {
   };
 }
 
-function openPopupOverlay(popupOverlay) {
+export function openPopupOverlay(popupOverlay) {
   popupOverlay.classList.add('popup_opened');
   popupOverlay.addEventListener('click', handlePopupClosureByOverlayClick);
   document.addEventListener('keydown', handlePopupClosureByEscape);
-}
-
-/*adding 'click' event handler to the like button*/
-function handleLikeButton(evt) {
-  evt.target.classList.toggle('elements__like-button_active');
-}
-
-/*adding 'click' event handler to delete the existing card*/
-function handleDeleteCard(evt) {
-  evt.target.closest('.elements__card').remove();
-}
-
-/* function opens the popup with the enlarged existing image and its full description */
-function handlePreviewImage(photo) {
-  imageCaptionPopup.textContent = photo.name;
-  imagePopup.src = photo.link;
-  imagePopup.alt = `Изображение ${photo.name}`;
-  openPopupOverlay(imagePopupOverlay);
-}
-
-function createCard(image) {
-  /* getting access to the card template and its child elements */
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.elements__image');
-  const cardImageName = cardElement.querySelector('.elements__title');
-  const likeButton = cardElement.querySelector('.elements__like-button');
-  const deleteButton = cardElement.querySelector('.elements__delete-button');
-
-  /* filling the card's elements with contents */
-  cardImageName.textContent = image.name;
-  cardImage.src = image.link;
-  cardImage.alt = `Изображение ${image.name}`;
-
-  likeButton.addEventListener('click', handleLikeButton);
-
-  deleteButton.addEventListener('click', handleDeleteCard);
-
-  cardImage.addEventListener('click', () => {
-    handlePreviewImage(image);
-  });
-
-  return cardElement;
 }
 
 function addCard(parentElem, card) {
   parentElem.prepend(card);
 }
 
-/*
-rendering the initial page: going through every element of the input array with images,
-creating the cards with the images,
-adding the image cards to their parent container
-*/
+//rendering the initial page: going through every element of the input array with images,
+//creating the instances of Card class and generating new cards,
+//adding the image cards to their parent container
 initialCards.forEach(item => {
-  addCard(cardsList, createCard(item));
+  const card  = new Card(item, '.card-template');
+  addCard(cardsList, card.generateCard());
 });
 
-/*opening the profile popup with the existing values for the user's name and job displayed on the main page*/
+function hideFormInputError(form, input, errorClassVisible, inputErrorClass) {
+  const errorElement = form.querySelector(`.${input.id}-error`);
+  errorElement.textContent = ' ';
+  errorElement.classList.remove(errorClassVisible);
+  input.classList.remove(inputErrorClass);
+}
+
+function toggleButtonState(hasInvalidInput, buttonElement, buttonClassInactive) {
+  if(hasInvalidInput) {
+    buttonElement.classList.add(buttonClassInactive);
+    buttonElement.setAttribute('disabled', true);
+  } else {
+    buttonElement.classList.remove(buttonClassInactive);
+    buttonElement.removeAttribute('disabled');
+  }
+}
+
+//opening the profile popup with the existing values for the user's name and job displayed on the main page
+//hiding the input error messages,
+//enabling an active state of submit button
 function handleProfilePopup() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
   const inputs = Array.from(profilePopupForm.querySelectorAll('.popup__input'));
   inputs.forEach(input => {
-    hideInputError(profilePopupForm, input, 'popup__error_visible', 'popup__input_type_error');
+    hideFormInputError(profilePopupForm, input, 'popup__error_visible', 'popup__input_type_error');
   });
   toggleButtonState(false, profilePopupSubmitButton, 'popup__button_disabled');
   openPopupOverlay(profilePopupOverlay);
 }
 
-/*reading new values of the user's name and job and their rendering on the main page*/
+//reading new values of the user's name and job and their rendering on the main page
 function handleProfileForm(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
@@ -128,24 +128,26 @@ function handleProfileForm(evt) {
   closePopupOverlay(profilePopupOverlay);
 }
 
-/*
-adding a new image:
-reading the values of the new image's source and title and creating a new image card from them,
-reseting the values of the form's text inputs to their initial values,
-closing the popup
-*/
+//adding a new image:
+//reading the values of the new image's source and title and creating a new image card from them,
+//closing the popup
 function handleSubmitNewImagePopupForm(evt) {
   evt.preventDefault();
-  addCard(cardsList, createCard({name: newImageName.value, link: newImageLink.value}));
+  const card = new Card({name: newImageName.value, link: newImageLink.value}, '.card-template');
+  addCard(cardsList, card.generateCard());
   closePopupOverlay(newImagePopupOverlay);
 }
 
+//opening new image popup form:
+//reseting the values of the form's text inputs to their initial values,
+//hiding the input error messages left from the previous session,
+//setting a disabled state of submit button
 function handleOpenNewImagePopupForm() {
   newImagePopupForm.reset();
   toggleButtonState(true, newImageSubmitButton, 'popup__button_disabled');
   const inputs = Array.from(newImagePopupForm.querySelectorAll('.popup__input'));
   inputs.forEach(input => {
-    hideInputError(newImagePopupForm, input, 'popup__error_visible', 'popup__input_type_error');
+    hideFormInputError(newImagePopupForm, input, 'popup__error_visible', 'popup__input_type_error');
   });
   openPopupOverlay(newImagePopupOverlay);
 }
