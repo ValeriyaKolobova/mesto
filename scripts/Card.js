@@ -1,4 +1,4 @@
-import {openPopupOverlay, imageCaptionPopup, imagePopup, imagePopupOverlay} from './index.js';
+import {imagePopupOverlay, imageCaptionPopup, imagePopup, openPopupOverlay} from './utils.js';
 
 export default class Card {
   constructor(data, cardSelector) {
@@ -11,6 +11,7 @@ export default class Card {
     const cardElement = document
       .querySelector(this._cardSelector)
       .content
+      .querySelector('.elements__card')
       .cloneNode(true);
 
       return cardElement;
@@ -41,8 +42,8 @@ export default class Card {
   }
 
   //'click' event handler for deleting the existing card
-  _handleDeleteCard(evt) {
-    evt.target.closest('.elements__card').remove();
+  _handleDeleteCard() {
+    this._element.remove();
   }
 
   //method to open the popup with the enlarged existing image and its full description
@@ -58,8 +59,8 @@ export default class Card {
       this._handleLikeButton(evt);
     });
 
-    deleteButtonElement.addEventListener('click', (evt) => {
-      this._handleDeleteCard(evt);
+    deleteButtonElement.addEventListener('click', () => {
+      this._handleDeleteCard();
     });
 
     cardElement.addEventListener('click', () => {

@@ -15,7 +15,7 @@ export default class FormValidator {
     inputElement.classList.add(inputErrorClass);
   }
 
-  _hideInputError(formElement, inputElement, errorElemClassVisible, inputErrorClass) {
+  hideInputError(formElement, inputElement, errorElemClassVisible, inputErrorClass) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     errorElement.textContent = ' ';
     errorElement.classList.remove(errorElemClassVisible);
@@ -26,7 +26,7 @@ export default class FormValidator {
     if(!inputElement.validity.valid) {
       this._showInputError(formElement, inputElement, inputElement.validationMessage, errorElemClassVisible, inputErrorClass);
     } else {
-      this._hideInputError(formElement, inputElement, errorElemClassVisible, inputErrorClass);
+      this.hideInputError(formElement, inputElement, errorElemClassVisible, inputErrorClass);
     }
   }
 
@@ -36,7 +36,7 @@ export default class FormValidator {
     });
   }
 
-  _toggleButtonState(hasInvalidInput, buttonElement, buttonClassInactive) {
+  toggleButtonState(hasInvalidInput, buttonElement, buttonClassInactive) {
     if(hasInvalidInput) {
       buttonElement.classList.add(buttonClassInactive);
       buttonElement.setAttribute('disabled', true);
@@ -50,13 +50,13 @@ export default class FormValidator {
     const buttonElement = formElement.querySelector(buttonSelector);
     const inputs = Array.from(formElement.querySelectorAll(inputSelector));
 
-    this._toggleButtonState(this._hasInvalidInput(inputs), buttonElement, buttonClassInactive);
+    this.toggleButtonState(this._hasInvalidInput(inputs), buttonElement, buttonClassInactive);
 
     inputs.forEach(input => {
       input.addEventListener('input', () => {
         this._isValid(formElement, input, errorElemClassVisible, inputErrorClass);
 
-        this._toggleButtonState(this._hasInvalidInput(inputs), buttonElement, buttonClassInactive);
+        this.toggleButtonState(this._hasInvalidInput(inputs), buttonElement, buttonClassInactive);
       });
     });
   }

@@ -1,6 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import {initialCards} from './initialCards.js';
+import {imagePopupOverlay, openPopupOverlay, closePopupOverlay} from './utils.js';
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const imageAddButton = document.querySelector('.profile__add-button');
@@ -22,60 +23,25 @@ const newImageName = newImagePopupForm.elements['place-name'];
 const newImageLink = newImagePopupForm.elements.link;
 const newImageSubmitButton = newImagePopupForm.elements['submit-new-image'];
 
-export const imagePopupOverlay = document.querySelector('.popup_type_show-image');
-export const imageCaptionPopup = imagePopupOverlay.querySelector('.popup__caption');
-export const imagePopup = imagePopupOverlay.querySelector('.popup__image');
 const imagePopupCloseButton = imagePopupOverlay.querySelector('.popup__close-button');
 
 const cardsList = document.querySelector('.elements__cards-list');
 
-//creating an instance for FormValidator class (profilePopupForm)
-const profilePopupFormValidator = new FormValidator({
+const validationConfig = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
-}, profilePopupForm);
+}
 
+//creating an instance for FormValidator class (profilePopupForm)
+const profilePopupFormValidator = new FormValidator(validationConfig, profilePopupForm);
 profilePopupFormValidator.enableValidation();
 
 //creating an instance for FormValidator class (newImagePopupForm)
-const newImagePopupFormValidator = new FormValidator({
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}, newImagePopupForm);
-
+const newImagePopupFormValidator = new FormValidator(validationConfig, newImagePopupForm);
 newImagePopupFormValidator.enableValidation();
-
-function closePopupOverlay(popupOverlay) {
-  popupOverlay.classList.remove('popup_opened');
-  popupOverlay.removeEventListener('click', handlePopupClosureByOverlayClick);
-  document.removeEventListener('keydown', handlePopupClosureByEscape);
-}
-
-function handlePopupClosureByOverlayClick(evt) {
-  const popupOpened = document.querySelector('.popup_opened');
-  if(evt.target === evt.currentTarget) {
-    closePopupOverlay(popupOpened);
-  };
-}
-
-function handlePopupClosureByEscape(evt) {
-  const popupOpened = document.querySelector('.popup_opened');
-  if(evt.key === 'Escape') {
-    closePopupOverlay(popupOpened);
-  };
-}
-
-export function openPopupOverlay(popupOverlay) {
-  popupOverlay.classList.add('popup_opened');
-  popupOverlay.addEventListener('click', handlePopupClosureByOverlayClick);
-  document.addEventListener('keydown', handlePopupClosureByEscape);
-}
 
 function addCard(parentElem, card) {
   parentElem.prepend(card);
@@ -89,23 +55,6 @@ initialCards.forEach(item => {
   addCard(cardsList, card.generateCard());
 });
 
-function hideFormInputError(form, input, errorClassVisible, inputErrorClass) {
-  const errorElement = form.querySelector(`.${input.id}-error`);
-  errorElement.textContent = ' ';
-  errorElement.classList.remove(errorClassVisible);
-  input.classList.remove(inputErrorClass);
-}
-
-function toggleButtonState(hasInvalidInput, buttonElement, buttonClassInactive) {
-  if(hasInvalidInput) {
-    buttonElement.classList.add(buttonClassInactive);
-    buttonElement.setAttribute('disabled', true);
-  } else {
-    buttonElement.classList.remove(buttonClassInactive);
-    buttonElement.removeAttribute('disabled');
-  }
-}
-
 //opening the profile popup with the existing values for the user's name and job displayed on the main page
 //hiding the input error messages,
 //enabling an active state of submit button
@@ -114,9 +63,9 @@ function handleProfilePopup() {
   inputJob.value = profileJob.textContent;
   const inputs = Array.from(profilePopupForm.querySelectorAll('.popup__input'));
   inputs.forEach(input => {
-    hideFormInputError(profilePopupForm, input, 'popup__error_visible', 'popup__input_type_error');
+    profilePopupFormValidator.hideInputError(profilePopupForm, input, validationConfig.errorClass, validationConfig.inputErrorClass);
   });
-  toggleButtonState(false, profilePopupSubmitButton, 'popup__button_disabled');
+  profilePopupFormValidator.toggleButtonState(false, profilePopupSubmitButton, validationConfig.inactiveButtonClass);
   openPopupOverlay(profilePopupOverlay);
 }
 
@@ -144,10 +93,10 @@ function handleSubmitNewImagePopupForm(evt) {
 //setting a disabled state of submit button
 function handleOpenNewImagePopupForm() {
   newImagePopupForm.reset();
-  toggleButtonState(true, newImageSubmitButton, 'popup__button_disabled');
+  newImagePopupFormValidator.toggleButtonState(true, newImageSubmitButton, validationConfig.inactiveButtonClass);
   const inputs = Array.from(newImagePopupForm.querySelectorAll('.popup__input'));
   inputs.forEach(input => {
-    hideFormInputError(newImagePopupForm, input, 'popup__error_visible', 'popup__input_type_error');
+    newImagePopupFormValidator.hideInputError(newImagePopupForm, input, validationConfig.errorClass, validationConfig.inputErrorClass);
   });
   openPopupOverlay(newImagePopupOverlay);
 }
