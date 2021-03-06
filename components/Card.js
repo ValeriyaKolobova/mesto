@@ -1,9 +1,8 @@
-import {imagePopupOverlay, imageCaptionPopup, imagePopup, openPopupOverlay} from './utils.js';
-
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, {handleCardClick}) {
     this._cardImageName = data.name;
     this._cardImageLink = data.link;
+    this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
   }
 
@@ -46,14 +45,6 @@ export default class Card {
     this._element.remove();
   }
 
-  //method to open the popup with the enlarged existing image and its full description
-  _handlePreviewImage() {
-    imageCaptionPopup.textContent = this._cardImageName;
-    imagePopup.src = this._cardImageLink;
-    imagePopup.alt = `Изображение ${this._cardImageName}`;
-    openPopupOverlay(imagePopupOverlay);
-  }
-
   _setCardEventListeners(likeButtonElement, deleteButtonElement, cardElement) {
     likeButtonElement.addEventListener('click', (evt) => {
       this._handleLikeButton(evt);
@@ -64,7 +55,7 @@ export default class Card {
     });
 
     cardElement.addEventListener('click', () => {
-      this._handlePreviewImage();
+      this._handleCardClick();
     });
   }
 }

@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "Проект представляет собой интерактивный фото-сервис. Здесь можно размещать, добавлять, удалять, а также оценивать фотографии, посвященные удивительным местам России: городам, памятникам природы и т.д.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ValeriyaKolobova/mesto.git"
+  },
+  "author": "Valeriya Kolobova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ValeriyaKolobova/mesto/issues"
+  },
+  "homepage": "https://github.com/ValeriyaKolobova/mesto#readme"
+}

@@ -69,3 +69,4 @@ export default class FormValidator {
     this._setEventListeners(this._formElement, this._inputSelector, this._submitButtonSelector, this._inactiveButtonClass, this._errorClass, this._inputErrorClass);
   }
 }
+
