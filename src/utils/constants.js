@@ -1,3 +1,10 @@
+const baikalImage = new URL('../images/elements-baikal.jpg', import.meta.url);
+const capeNyuklyaImage = new URL('../images/elements-cape-nyuklya.jpg', import.meta.url);
+const goraChernayaImage = new URL('../images/elements-gora-chernaya.jpg', import.meta.url);
+const kamchatkaImage = new URL('../images/elements-kamchatka.jpg', import.meta.url);
+const redQuareImage = new URL('../images/elements-red-square.jpg', import.meta.url);
+const saintPetersburgImage = new URL('../images/elements-saint-petersburg.jpg', import.meta.url);
+
 export const cardListSelector = '.elements__cards-list';
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const imageAddButton = document.querySelector('.profile__add-button');
@@ -12,27 +19,27 @@ export const escape = 'Escape';
 export const initialCards = [
   {
     name: 'Байкал',
-    link: './images/elements-baikal.jpg'
+    link: baikalImage
   },
   {
     name: 'Мыс Нюкля',
-    link: './images/elements-cape-nyuklya.jpg'
+    link: capeNyuklyaImage
   },
   {
     name: 'Гора Чёрная Пирамида',
-    link: './images/elements-gora-chernaya.jpg'
+    link: goraChernayaImage
   },
   {
     name: 'Камчатка',
-    link: './images/elements-kamchatka.jpg'
+    link: kamchatkaImage
   },
   {
     name: 'Красная площадь',
-    link: './images/elements-red-square.jpg'
+    link: redQuareImage
   },
   {
     name: 'Санкт-Петербург',
-    link: './images/elements-saint-petersburg.jpg'
+    link: saintPetersburgImage
   }
 ];
 
