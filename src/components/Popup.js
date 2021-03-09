@@ -3,37 +3,31 @@ import {escape} from '../utils/constants.js';
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
+    this._handleEscCloseCall = this._handleEscClose.bind(this);
+    this._handleOverlayClickCloseCall = this._handleOverlayClickClose.bind(this);
   }
 
   open() {
     this._popup.classList.add('popup_opened');
-    this._popup.addEventListener('mousedown', this._handleOverlayClickClose.bind(this));
-    this._popup.addEventListener('contextmenu', evt => {
-      evt.preventDefault();
-    });
-    document.addEventListener('keydown', this._handleEscClose.bind(this));
+    this._popup.addEventListener('mousedown', this._handleOverlayClickCloseCall);
+    document.addEventListener('keydown', this._handleEscCloseCall);
   }
 
   close() {
     this._popup.classList.remove('popup_opened');
-    this._popup.removeEventListener('mousedown', this._handleOverlayClickClose.bind(this));
-    this._popup.removeEventListener('contextmenu', evt => {
-      evt.preventDefault();
-    });
-    document.removeEventListener('keydown', this._handleEscClose.bind(this));
-  }
-
-  _handleEscClose(evt) {
-    const popupOpened = document.querySelector('.popup_opened');
-    if(evt.key === escape) {
-      this.close(popupOpened);
-    };
+    this._popup.removeEventListener('mousedown', this._handleOverlayClickCloseCall);
+    document.removeEventListener('keydown', this._handleEscCloseCall);
   }
 
   _handleOverlayClickClose(evt) {
-    const popupOpened = document.querySelector('.popup_opened');
     if(evt.target === evt.currentTarget) {
-      this.close(popupOpened);
+      this.close();
+    };
+  }
+
+  _handleEscClose(evt) {
+    if(evt.key === escape) {
+      this.close();
     };
   }
 

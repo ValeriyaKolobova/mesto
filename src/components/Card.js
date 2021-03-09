@@ -43,6 +43,7 @@ export default class Card {
   //'click' event handler for deleting the existing card
   _handleDeleteCard() {
     this._element.remove();
+    this._element = null;
   }
 
   _setCardEventListeners(likeButtonElement, deleteButtonElement, cardElement) {

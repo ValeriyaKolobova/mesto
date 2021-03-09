@@ -19,7 +19,7 @@ import {
   addNewCardPopupSubmitButton
 } from '../utils/constants.js';
 
-const handleCreateCard = (cardData) => {
+const createCard = (cardData) => {
   const cardInstance = new Card(cardData, '.card-template', {
     handleCardClick: () => {
       popupWithImageInstance.open(cardData);
@@ -29,10 +29,10 @@ const handleCreateCard = (cardData) => {
   cardsList.addItem(cardElement);
 };
 
-const hideInputErrorOnPopupOpen = (popupForm, popupFormValidator, {inputSelector, errorClass, inputErrorClass}) => {
+const hideInputErrorOnPopupOpen = (popupForm, popupFormValidator, {inputSelector}) => {
   const inputs = Array.from(popupForm.querySelectorAll(inputSelector));
   inputs.forEach(input => {
-    popupFormValidator.hideInputError(popupForm, input, errorClass, inputErrorClass);
+    popupFormValidator.hideInputError(input);
   });
 };
 
@@ -48,7 +48,7 @@ popupWithImageInstance.setEventListeners();
 const cardsList = new Section({
   data: initialCards,
   renderer: (cardItem) => {
-    handleCreateCard(cardItem);
+    createCard(cardItem);
   }
 }, cardListSelector);
 
@@ -62,6 +62,7 @@ const userInfoInstance = new UserInfo({
 const profileInfoPopup = new PopupWithForm('.popup_type_edit-personal-info', profileInfoPopupForm, {
   handleFormSubmit: (inputsData) => {
     userInfoInstance.setUserInfo(inputsData);
+    profileInfoPopup.close();
   }
 });
 profileInfoPopup.setEventListeners();
@@ -73,20 +74,21 @@ profileEditButton.addEventListener('click', () => {
   inputUserJob.value = userInitialInfo.job;
 
   hideInputErrorOnPopupOpen(profileInfoPopupForm, profileInfoPopupFormValidator, validationConfig);
-  profileInfoPopupFormValidator.toggleButtonState(false, profileInfoPopupSubmitButton, validationConfig.inactiveButtonClass);
+  profileInfoPopupFormValidator.toggleButtonState(false, profileInfoPopupSubmitButton);
 
   profileInfoPopup.open();
 });
 
 const addNewCardPopup = new PopupWithForm('.popup_type_add-new-image', addNewCardPopupForm, {
   handleFormSubmit: (inputsData) => {
-    handleCreateCard(inputsData);
+    createCard(inputsData);
+    addNewCardPopup.close();
   }
 });
 addNewCardPopup.setEventListeners();
 
 imageAddButton.addEventListener('click', () => {
   hideInputErrorOnPopupOpen(addNewCardPopupForm, addNewCardPopupFormValidator, validationConfig);
-  addNewCardPopupFormValidator.toggleButtonState(true, addNewCardPopupSubmitButton, validationConfig.inactiveButtonClass);
+  addNewCardPopupFormValidator.toggleButtonState(true, addNewCardPopupSubmitButton);
   addNewCardPopup.open();
 });
