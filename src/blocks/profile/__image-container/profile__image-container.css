@@ -1,0 +1,18 @@
+.profile__image-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-right: 30px;
+}
+
+@media screen and (max-width: 846px) {
+  .profile__image-container {
+    margin-right: 26px;
+  }
+}
+
+@media screen and (max-width: 806px) {
+  .profile__image-container {
+    margin: 0 0 26px 0;
+  }
+}

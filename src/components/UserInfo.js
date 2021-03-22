@@ -9,13 +9,21 @@ export default class UserInfo {
   getUserInfo() {
     this._userInfo = {};
     this._userInfo.name = this._userName.textContent;
-    this._userInfo.job = this._userJob.textContent;
+    this._userInfo.about = this._userJob.textContent;
     return this._userInfo;
   }
 
   setUserInfo(newUserData) {
     this._userName.textContent = newUserData.name;
-    this._userJob.textContent = newUserData.job;
+    this._userJob.textContent = newUserData.about;
+  }
+
+  setUserId(newUserData) {
+    this._userId = newUserData['_id'];
+  }
+
+  getUserId() {
+    return this._userId;
   }
 
 }
