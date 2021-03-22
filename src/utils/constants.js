@@ -7,13 +7,15 @@ export const addNewCardPopupForm = document.forms['popup-add-picture'];
 export const addNewCardPopupSubmitButton = addNewCardPopupForm.querySelector('.popup__button');
 export const profileInfoPopupForm = document.forms['popup-profile-info'];
 export const profileInfoPopupSubmitButton = profileInfoPopupForm.querySelector('.popup__button');
+export const deleteCardPopupForm = document.forms['popup-delete-card'];
+export const deleteCardPopupSubmitButton = deleteCardPopupForm.querySelector('.popup__button');
 export const profileAvatar = document.querySelector('.profile__avatar-cover');
 export const profileAvatarImage = document.querySelector('.profile__avatar');
 export const profileUserNameDisplayError = document.querySelector('.profile__name_type_error');
 export const profileUserJobDisplayError = document.querySelector('.profile__job_type_error');
 export const changeAvatarPopupForm = document.forms['popup-change-avatar'];
 export const changeAvatarSubmitButton = changeAvatarPopupForm.querySelector('.popup__button');
-export const deleteCardConfirmButton = document.querySelector('.popup__button_type_confirm');
+
 export const escape = 'Escape';
 
 export const validationConfig = {

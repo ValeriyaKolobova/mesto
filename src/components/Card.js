@@ -40,6 +40,9 @@ export default class Card {
     this._likeCountElement.textContent = likesArray.length;
   }
 
+  toggleLikeButtonState(evt) {
+    evt.target.classList.toggle('elements__like-button_active');
+  }
 
   generateCard() {
     this._element = this._getTemplate();
@@ -47,7 +50,7 @@ export default class Card {
     const likeButton = this._element.querySelector('.elements__like-button');
     const deleteButton = this._element.querySelector('.elements__delete-button');
 
-    //search for the like button inside this particular card element only
+    //search for the like xounter inside this particular card element only
     this._likeCountElement = this._element.querySelector('.elements__like-count');
     this.setLikeCounter(this._cardLikes);
 

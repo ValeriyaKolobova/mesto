@@ -17,8 +17,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(this._checkServerResponseStatus)
-      .catch(err => Promise.reject(err));
+      .then(this._checkServerResponseStatus);
   }
 
   getInitialCards() {
@@ -26,8 +25,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(this._checkServerResponseStatus)
-      .catch(err => Promise.reject(err));
+      .then(this._checkServerResponseStatus);
   }
 
   renewUserInfo(newUserInfoData) {
@@ -39,8 +37,7 @@ export default class Api {
         about: newUserInfoData.about
       })
     })
-      .then(this._checkServerResponseStatus)
-      .catch(err => Promise.reject(err));
+      .then(this._checkServerResponseStatus);
   }
 
   createNewCard(newCardData) {
@@ -52,8 +49,7 @@ export default class Api {
         link: newCardData.link
       })
     })
-      .then(this._checkServerResponseStatus)
-      .catch(err => Promise.reject(err));
+      .then(this._checkServerResponseStatus);
   }
 
   deleteCard(cardId) {
@@ -61,8 +57,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(this._checkServerResponseStatus)
-      .catch(err => Promise.reject(err));
+      .then(this._checkServerResponseStatus);
   }
 
   addLike(cardId) {
@@ -70,8 +65,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers
     })
-      .then(this._checkServerResponseStatus)
-      .catch(err => Promise.reject(err));
+      .then(this._checkServerResponseStatus);
   }
 
   deleteLike(cardId) {
@@ -79,8 +73,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(this._checkServerResponseStatus)
-      .catch(err => Promise.reject(err));
+      .then(this._checkServerResponseStatus);
   }
 
   setNewAvatar(newAvatarData) {
@@ -91,8 +84,7 @@ export default class Api {
         avatar: newAvatarData.link
       })
     })
-      .then(this._checkServerResponseStatus)
-      .catch(err => Promise.reject(err));
+      .then(this._checkServerResponseStatus);
   }
 
 
