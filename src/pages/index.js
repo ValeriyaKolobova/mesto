@@ -151,14 +151,12 @@ const addNewCardPopup = new PopupWithForm('.popup_type_add-new-image', addNewCar
 });
 addNewCardPopup.setEventListeners();
 
-
 imageAddButton.addEventListener('click', () => {
   addNewCardPopupFormValidator.hideInputErrorsOnPopupWithFormOpening();
   addNewCardPopupFormValidator.toggleButtonState();
   addNewCardPopupSubmitButton.textContent = 'Создать';
   addNewCardPopup.open();
 });
-
 
 const changeAvatarPopup = new PopupWithForm('.popup_type_change-avatar', changeAvatarPopupForm, {
   handleFormSubmit: (inputData) => {
